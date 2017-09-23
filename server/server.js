@@ -15,6 +15,18 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('A new connection has been made with a client.');
 
+    socket.emit('newMessage', {
+        from: "user1",
+        text: "Sample text from server",
+        createdAt: 000000000
+    });
+
+    socket.on('createMessage', (createMessageData) => {
+        console.log('newMessage', createMessageData);
+    })
+
+
+
     socket.on('disconnect', () => {
         console.log('The connection to the client has been dropped.');
     });
