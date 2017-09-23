@@ -1,16 +1,26 @@
-const express = require('express');
 const path = require('path');
+const http = require('http');
+const express = require('express');
+const socketIO = require('socket.io');
 
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 7777;
 
-const app = express();
+let app = express();
+let server = http.createServer(app);
+let io = socketIO(server);
 
 app.use(express.static(publicPath));
 
+io.on('connection', (socket) => {
+    console.log('A new connection has been made with a client.');
+
+    socket.on('disconnect', () => {
+        console.log('The connection to the client has been dropped.');
+    });
+});
 
 
-
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server started on port ${port}.`);
 });
