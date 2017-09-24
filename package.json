@@ -7,10 +7,14 @@
     "express": "^4.15.4",
     "socket.io": "^2.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "mocha": "^3.5.3"
+  },
   "scripts": {
     "start": "node server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha server/**/*.test.js",
+    "test-watch": "nodemon --exec npm test"
   },
   "engines": {
     "node": "8.4.0"
