@@ -15,3 +15,16 @@ describe('generateMessage', () => {
         });
     });
 });
+
+describe('generateLocationMessage', () => {
+    it('should generate correct location object', () => {
+        let from = 'A User';
+        let lat = 15;
+        let long = 19;
+        let url = 'https://www.google.com/maps?q=15,19';
+        let message = generateLocationMessage(from, lat, long);
+
+        expect(typeof(message.createdAt)).toBe('number');
+        expect(message).toMatchObject({from, url});
+
+    });

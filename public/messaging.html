@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Messaging | Travel App</title>
+</head>
+<body class="messaging">
+    <div class="messaging__sidebar">
+        <h3>Users</h3>
+        <div id="users">
+
+        </div>
+    </div>
+
+    <div class="messaging__main">
+        <ol id="messageList"></ol>
+        <div class="messaging__footer">
+            <form id="messageForm">
+                <input name="messageInput" type="text" placeholder="Message" autofocus autocomplete="off" />
+                <button>Send</button>
+            </form>
+        
+            <button id="shareLocationButton">Share Current Location</button>
+        </div>
+    </div>
+
+    <!-- Create new Handlebars template -->
+    <script id="message-template" type="text/template">
+        <li class="message">
+            <div class="message__title">
+                <h4>{{from}}</h4>
+                <span>{{createdAt}}</span>
+            </div>
+            <div class="message__body">
+                <p>{{text}}</p>
+            </div>
+        </li>    
+    </script>
+
+    <script id="location-message-template" type="text/template">
+        <li class="message">
+            <div class="message__title">
+                <h4>{{from}}</h4>
+                <span>{{createdAt}}</span>
+            </div>
+            <div class="message__body">
+                <a href="{{url}}" target="_blank">My Current Location</a>
+            </div>
+        </li>    
+    </script>
+    
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/libs/jquery-3.2.1.min (1).js"></script>
+    <script src="./js/libs/moment.js"></script>
+    <script src="./js/libs/handlebars.min.js"></script>
+    <script src="./js/messaging.js"></script>
+</body>
+</html>
