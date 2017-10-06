@@ -1,7 +1,7 @@
 let socket = io();
 socket.on('connect', () => {
     let params = jQuery.deparam(window.location.search);
-
+    
     socket.emit('join', params, function(err) {
         if(err) {
             alert(err);
@@ -10,6 +10,19 @@ socket.on('connect', () => {
             console.log('New user joined.')
         }
     });
+});
+
+socket.on('disconnect', function() {
+    console.log('Connection to server dropped.');
+});
+
+socket.on('updateUserList', function(users) {
+    let ol = jQuery('<ol></ol>');
+
+    users.forEach(function(user) {
+        ol.append(jQuery('<li></li>').text(user));
+    });
+    jQuery('#users').html(ol);
 });
 
 socket.on('newMessage', function(newMessageData) {
@@ -37,9 +50,6 @@ socket.on('newLocationMessage', function (message) {
 });
 
 
-socket.on('disconnect', function() {
-    console.log('Connection to server dropped.');
-})
 
 // Create a message
 jQuery("#messageForm").on('submit', function(e) {

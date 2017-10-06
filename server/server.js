@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
         
         // ADMIN MESSAGES
         socket.emit('newMessage', generateMessage('Admin', 'You have connected to the messaging service.'));
-        socket.broadcast.emit('newMessage', generateMessage('Admin', `${params.name} has joined the room.`));
+        socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined the room.`));
 
         callback();
     });
@@ -58,7 +58,13 @@ io.on('connection', (socket) => {
 
 
     socket.on('disconnect', () => {
-        console.log('The connection to the client has been dropped.');
+        let user = users.removeUser(socket.id);
+        if (user) {
+            // Update the user list
+            io.to(user.room).emit('updateUserList', users.getUserList(user.room));
+            // Announce a user has left
+            io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left.`));
+        }
     });
 });
 
