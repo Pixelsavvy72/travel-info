@@ -6,6 +6,7 @@ const socketIO = require('socket.io');
 const {generateMessage, generateLocationMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
 const {Users} = require('./utils/users');
+const {Rooms} = require('./utils/rooms');
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 7777;
 
@@ -13,6 +14,7 @@ let app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
 
+let rooms = new Rooms();
 let users = new Users();
 
 app.use(express.static(publicPath));
@@ -24,6 +26,15 @@ io.on('connection', (socket) => {
     socket.on('join', (params, callback) => {
         if(!isRealString(params.name) || !isRealString(params.room)) {
             return callback('Name and room are required');
+        }
+        
+        if(!rooms.getRoom(params.room)) {
+            console.log('Room does not exist');
+            let gotoPage = '/new-travel-route.html';
+            let userName = params.name;
+            let roomName = params.room;
+            rooms.addRoom(params.room);
+            socket.emit('createRoute', gotoPage, userName, roomName);
         }
         
         socket.join(params.room); // user joins room

@@ -63,6 +63,13 @@ jQuery("#messageForm").on('submit', function(e) {
     });
 });
 
+// Create a new travel route
+socket.on('createRoute', function(gotoPage, userName, roomName) {
+    window.location.href = `${gotoPage}?name=${userName}&room=${roomName}`;
+});
+
+
+
 // Geolocation
 
 let locationButton = jQuery('#shareLocationButton');

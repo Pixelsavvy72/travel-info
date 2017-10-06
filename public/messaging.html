@@ -6,6 +6,11 @@
 </head>
 <body class="messaging">
     <div class="messaging__sidebar">
+        <h3>Planned Route</h3>
+        <div id="plannedRoute">
+            <p id="start"></p>
+            <p id="end"></p>
+        </div>
         <h3>Users</h3>
         <div id="users">
 
@@ -57,5 +62,14 @@
     <script src="./js/libs/handlebars.min.js"></script>
     <script src="./js/libs/deparam.js"></script>
     <script src="./js/messaging.js"></script>
+
+    <script>
+            let params = jQuery.deparam(window.location.search);
+            
+    
+            $("#start").html("Start: " + params.locationStart);
+            $("#end").html("Destination: " + params.locationFinal);
+            console.log(window.location.search);
+        </script>
 </body>
 </html>

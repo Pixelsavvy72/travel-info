@@ -1,0 +1,19 @@
+cd d:\
+cd "Program Files Secondary\MongoDB\Server\3.4\bin\"
+.\mongod.exe --dbpath D:\Craig\mongoData
+
+cd d:\
+cd "Program Files Secondary\MongoDB\Server\3.4\bin\"
+.\mongo.exe
+
+
+
+GENERAL NOTES:
+
+DO NOT use arrow functions inside of client side javascript.
+
+Setting up scripts in package.json:
+    "start": "node server/server.js",
+    "test": "mocha server/**/*.test.js",
+    "test-watch": "nodemon --exec npm test"
+
